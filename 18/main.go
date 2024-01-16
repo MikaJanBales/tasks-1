@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sync"
+	"tasks-1/18/counter"
 )
 
 type Counter interface {
@@ -23,7 +24,7 @@ func startWorker(wg *sync.WaitGroup, counter Counter) {
 
 func main() {
 	wg := &sync.WaitGroup{}
-	mutStr := newMutexStruct()
+	mutStr := counter.NewMutexStruct()
 	wg.Add(workersNum)
 
 	for i := 0; i < workersNum; i++ {
@@ -34,7 +35,7 @@ func main() {
 	fmt.Printf("number of workers = %d, number of iterations = %d, counter = %d\n", workersNum, iterationsNum, mutStr.Get())
 
 	wg = &sync.WaitGroup{}
-	atStr := newAtomicStruct()
+	atStr := counter.NewAtomicStruct()
 	wg.Add(workersNum)
 
 	for i := 0; i < workersNum; i++ {
